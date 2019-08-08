@@ -117,20 +117,12 @@ export class AppComponent implements OnInit {
     }
   }
 
-  _getDaysInMonth(year, month): number {
-    if (!year || !month) {
-      return 0;
-    }
-    return new Date(year, month + 1, 0).getDate();
-  }
-
   getForecastDetail() {
     // Filter the list to the records for the selected date
     const filteredForecast = this._forcastData.list.filter(weatherData => {
       const date = new Date(weatherData.dt_txt);
       return date.getDate() === this._selectedDate.getDate();
     });
-    console.log(filteredForecast);
     return filteredForecast.map(weatherData => {
       const rainAmmount = weatherData.rain ? weatherData.rain['3h'] : null;
       return {
