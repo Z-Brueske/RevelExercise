@@ -1,0 +1,60 @@
+<div class="page">
+  <div class="page-title">
+    <h2 style="margin-left: 5%">Acme</h2>
+    <h4 style="align-self: center; margin-left: 5%">When To Call</h4>
+  </div>
+  <div style="height: calc(100% - 32px); overflow: auto;">
+    <div style="width: 50%; margin: 0 auto;">
+      <h3>5 Day Forcast</h3>
+      <h5>Select a day to view a detailed forcast</h5>
+    </div>
+    <div class="forecast">
+      <div class="forecast__preview" *ngFor="let forecast of displayedForecast"
+           [class.selected]="forecast.day === _selectedDate"
+           (click)="selectedDate = forecast.day">
+        <div class="forecast__preview__date">
+          <div class="forecast__preview__date__day">{{ forecast.day | date: 'EE'}}</div>
+          <div class="forecast__preview__date__number">{{ forecast.day | date: 'd'}}</div>
+        </div>
+        <div class="forecast__preview__weather">
+          <div style="display: flex; flex-direction: column">
+            <div class="temp-high">High: {{ forecast.high }}</div>
+            <div class="temp-low">Low: {{ forecast.low }}</div>
+          </div>
+          <!-- https://stackoverflow.com/a/30712432/11808299 -->
+          <svg width="25%" viewbox="0 0 50 75">
+            <path *ngIf="forecast.rain" fill="lightblue" stroke="darkgray" stroke-width="1.5"
+                  d="M15 3
+                   Q16.5 6.8 25 18
+                   A12.8 12.8 0 1 1 5 18
+                   Q13.5 6.8 15 3z" />
+          </svg>
+        </div>
+        <div class="action">{{ forecast.action | uppercase }}</div>
+      </div>
+    </div>
+    <div class="forecast-detail">
+      <h3 style="margin: 8px">{{ _selectedDate | date: 'fullDate' }}</h3>
+      <div *ngFor="let forecast of displayedDetail" class="forecast-detail__preview">
+        <div class="forecast-detail__preview__date">
+          <div>{{ forecast.day | date: 'shortTime'}}</div>
+        </div>
+        <div class="forecast-detail__preview__weather">
+          <div style="display: flex; flex-direction: column">
+            <div class="temp-high">High: {{ forecast.high }}</div>
+            <div class="temp-low">Low: {{ forecast.low }}</div>
+          </div>
+        </div>
+        <!-- https://stackoverflow.com/a/30712432/11808299 -->
+        <svg width="25%" viewbox="0 0 50 75" style="margin: 4px 0 0 16px;">
+          <path *ngIf="forecast.rain" fill="lightblue" stroke="darkgray" stroke-width="1.5"
+                d="M15 3
+                 Q16.5 6.8 25 18
+                 A12.8 12.8 0 1 1 5 18
+                 Q13.5 6.8 15 3z" />
+        </svg>
+        <div class="action">{{ forecast.action | uppercase }}</div>
+      </div>
+    </div>
+  </div>
+</div>
